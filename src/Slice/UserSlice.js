@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { loginApi, getUserProfile, signupApi } from "../Api/Auth";
-
+const getToken = localStorage.getItem('token');
 const initialState = {
     status: false,
-    isLoggedIn: false,
+    isLoggedIn: getToken ? true  : false,
     user: null,
     token: null,
     loading: false,
