@@ -3,9 +3,9 @@ import { loginApi, getUserProfile, signupApi } from "../Api/Auth";
 const getToken = localStorage.getItem('token');
 const initialState = {
     status: false,
-    isLoggedIn: getToken ? true  : false,
+    isLoggedIn: getToken ? true  : false,  
     user: null,
-    token: null,
+    token: null,    
     loading: false,
     error: null
 }
@@ -36,6 +36,7 @@ export const UserSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
+            debugger
             state.isLoggedIn = false;
             state.user = null;
             state.token = null;
@@ -45,10 +46,12 @@ export const UserSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(loginAsync.pending, (state) => {
+                debugger
                 state.loading = true;
                 state.error = null;
             })
             .addCase(loginAsync.fulfilled, (state, action) => {
+                debugger
                 state.status = true;
                 state.loading = false;
                 state.isLoggedIn = true;
@@ -56,6 +59,7 @@ export const UserSlice = createSlice({
                 state.token = action.payload.token;
             })
             .addCase(loginAsync.rejected, (state, action) => {
+                debugger
                 state.loading = false;
                 state.error = action.error.message;
             })
