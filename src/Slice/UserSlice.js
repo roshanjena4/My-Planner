@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { loginApi, getUserProfile, signupApi } from "../Api/Auth";
+
 const getToken = localStorage.getItem('token');
 const initialState = {
     status: false,
@@ -36,7 +37,7 @@ export const UserSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            debugger
+            // debugger
             state.isLoggedIn = false;
             state.user = null;
             state.token = null;
@@ -46,12 +47,12 @@ export const UserSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(loginAsync.pending, (state) => {
-                debugger
+                // debugger
                 state.loading = true;
                 state.error = null;
             })
             .addCase(loginAsync.fulfilled, (state, action) => {
-                debugger
+                // debugger
                 state.status = true;
                 state.loading = false;
                 state.isLoggedIn = true;
@@ -59,7 +60,7 @@ export const UserSlice = createSlice({
                 state.token = action.payload.token;
             })
             .addCase(loginAsync.rejected, (state, action) => {
-                debugger
+                // debugger
                 state.loading = false;
                 state.error = action.error.message;
             })

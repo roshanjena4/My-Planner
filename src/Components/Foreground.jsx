@@ -1,9 +1,12 @@
-import React, { useState, useRef,useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Card from './Card'
 import { MdOutlineAdd } from "react-icons/md";
+import { AiOutlineLogout } from "react-icons/ai";
 import { u } from 'motion/react-client';
 import { useSelector, useDispatch } from 'react-redux';
 import { AddTask } from '../Slice/TaskSlice';
+import { logout } from '../Slice/UserSlice';
+import { persistor } from "../store";
 
 function Foreground() {
     const task = useSelector((state) => state.task.value)
@@ -11,12 +14,17 @@ function Foreground() {
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [desc, setDesc] = useState()
 
-    
+
 
     const ref = useRef();
 
     const handleAddTask = () => {
         setIsFormOpen(true);
+    };
+
+    const handleLogout = () => {
+        dispatch(logout());
+        persistor.purge();
     };
 
 
@@ -40,8 +48,19 @@ function Foreground() {
 
 
     return (
-        <div ref={ref} className='fixed flex gap-5 flex-wrap top-0 left-0 w-full h-full z-[5] p-6'>
-            <MdOutlineAdd className='text-amber-500 ' style={{ cursor: 'pointer', zIndex: '1', fontSize: '30px  ' }} onClick={handleAddTask} />
+        <div ref={ref} className='fixed flex flex-col sm:flex-row justify-between items-end sm:items-start gap-5 flex-wrap top-0 left-0 w-full h-full z-[5] p-6'>
+            <div className="w-full justify-between flex ">
+                <MdOutlineAdd
+                    className='text-amber-500'
+                    style={{ cursor: 'pointer', zIndex: '1', fontSize: '30px' }}
+                    onClick={handleAddTask}
+                />
+                <AiOutlineLogout
+                    className='text-amber-500'
+                    style={{ cursor: 'pointer', zIndex: '1', fontSize: '30px' }}
+                    onClick={handleLogout}
+                />
+            </div>
             {isFormOpen && (
                 <div
                     className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black/50 py-10 z-50"
@@ -51,7 +70,6 @@ function Foreground() {
                 >
                     <div className="max-h-full w-full max-w-xl overflow-y-auto sm:rounded-2xl bg-[#1f1d1e]  shadow-lg">
                         <div className="relative w-full">
-                           
                             <button
                                 type="button"
                                 className="absolute right-10 top-0 rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 focus:outline-none dark:text-gray-500 dark:hover:bg-[#272222] dark:hover:text-gray-300"

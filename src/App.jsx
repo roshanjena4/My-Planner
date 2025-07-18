@@ -10,6 +10,7 @@ import PrivateRoute from './Routes/PrivateRoute';
 import PublicRoute from './Routes/PublicRoute';
 import AdminRoutes from './Routes/AdminRoute';
 import NotFound from './Pages/NotFound'
+import Counter from './Pages/Counter'
 
 
 function App() {
@@ -31,9 +32,9 @@ function App() {
 
         <Routes>
           <Route path="/" element={<PublicRoute> <Login /> </PublicRoute>} />
-          {/* <Route path="/signin" element={<PublicRoute> <Login /> </PublicRoute>}/> */}
           <Route path="/signup" element={<PublicRoute> <Signup /> </PublicRoute>} />
           <Route path="/task" element={<PrivateRoute> <Foreground /> </PrivateRoute>} />
+          <Route path="/counter" element={<PrivateRoute> <Counter /> </PrivateRoute>} />
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </div>
