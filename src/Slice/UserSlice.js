@@ -12,7 +12,7 @@ const initialState = {
 }
 
 export const loginAsync = createAsyncThunk(
-    'auth/login',
+    'userAuth/login',
     async ({ email, password }, thunkAPI) => {
         const token = await loginApi({ email, password });
         localStorage.setItem('token', token.access_token);
@@ -26,7 +26,7 @@ export const loginAsync = createAsyncThunk(
 );
 
 export const signup = createAsyncThunk(
-    'auth/signup',
+    'userAuth/signup',
     async ({ name, email, password }, thunkAPI) => {
         const userData = await signupApi({ name, email, password });
 

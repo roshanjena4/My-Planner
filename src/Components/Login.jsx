@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginAsync, logout } from '../Slice/UserSlice';
 import React, { useState,useEffect } from 'react';
 import logo from '../assets/clipboard-tasks-svgrepo-com.svg'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 function Login() {
@@ -60,6 +60,9 @@ function Login() {
                                 <button type="submit" className="rounded-3xl bg-yellow-400 bg-opacity-50 px-10 py-2 text-black shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600">Login</button>
                             </div>
                         </form>
+                        <Link to="/signup" className="mt-4 flex justify-center text-lg text-yellow-400 hover:text-yellow-600">
+                            Don't have an account? Sign Up
+                        </Link>
                     </div>
                 </div>
             </div>

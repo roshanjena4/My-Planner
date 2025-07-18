@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import logo from '../assets/clipboard-tasks-svgrepo-com.svg'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../Slice/UserSlice';
@@ -43,19 +43,22 @@ function Signup() {
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4 text-lg">
-                            <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="rounded-3xl border-none bg-yellow-100 bg-opacity-50 px-6 py-2 text-center text-black  placeholder-zinc shadow-lg outline-none backdrop-blur-md" placeholder="fullname" />
+                            <input type="text" value={name} required minLength={2} maxLength={20} onChange={(e) => setName(e.target.value)} className="rounded-3xl border-none bg-yellow-100 bg-opacity-50 px-6 py-2 text-center text-black  placeholder-zinc shadow-lg outline-none backdrop-blur-md invalid:border-red-500" placeholder="fullname" />
                         </div>
                         <div className="mb-4 text-lg">
-                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="rounded-3xl border-none bg-yellow-100 bg-opacity-50 px-6 py-2 text-center text-black  placeholder-zinc shadow-lg outline-none backdrop-blur-md" placeholder="@email.com" />
+                            <input type="email" value={email} required minLength={5} maxLength={30} onChange={(e) => setEmail(e.target.value)} className="rounded-3xl border-none bg-yellow-100 bg-opacity-50 px-6 py-2 text-center text-black  placeholder-zinc shadow-lg outline-none backdrop-blur-md autofill:bg-green-200" placeholder="@email.com" />
                         </div>
 
                         <div className="mb-4 text-lg">
-                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="rounded-3xl border-none bg-yellow-100 bg-opacity-50 px-6 py-2 text-center text-black placeholder-zinc shadow-lg outline-none backdrop-blur-md" placeholder="*********" />
+                            <input type="password" value={password} required minLength={5} maxLength={15} onChange={(e) => setPassword(e.target.value)} className="rounded-3xl border-none bg-yellow-100 bg-opacity-50 px-6 py-2 text-center text-black placeholder-zinc shadow-lg outline-none backdrop-blur-md" placeholder="*********" />
                         </div>
                         <div className="mt-8 flex justify-center text-lg text-black">
                             <button type="submit" className="rounded-3xl bg-yellow-400 bg-opacity-50 px-10 py-2 text-black shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600">Signup</button>
                         </div>
                     </form>
+                    <Link to="/" className="mt-4 flex justify-center text-lg text-yellow-400 hover:text-yellow-600">
+                        Already have an account? Login
+                    </Link>
                 </div>
             </div>
         </div>

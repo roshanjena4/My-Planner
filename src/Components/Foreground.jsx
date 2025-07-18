@@ -2,14 +2,18 @@ import React, { useState, useRef, useEffect } from 'react'
 import Card from './Card'
 import { MdOutlineAdd } from "react-icons/md";
 import { AiOutlineLogout } from "react-icons/ai";
+import { ImPaypal } from "react-icons/im";
 import { u } from 'motion/react-client';
 import { useSelector, useDispatch } from 'react-redux';
 import { AddTask } from '../Slice/TaskSlice';
 import { logout } from '../Slice/UserSlice';
 import { persistor } from "../store";
+import { useNavigate } from 'react-router-dom';
 
 function Foreground() {
+    const navigate = useNavigate();
     const task = useSelector((state) => state.task.value)
+    const { isPaid } = useSelector((state) => state.counter.value)
     const dispatch = useDispatch();
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [desc, setDesc] = useState()
@@ -19,7 +23,12 @@ function Foreground() {
     const ref = useRef();
 
     const handleAddTask = () => {
-        setIsFormOpen(true);
+        if(isPaid) {
+            setIsFormOpen(true);
+        } else {
+            alert("Please complete the payment before adding tasks.");
+            navigate('/counter');
+        }
     };
 
     const handleLogout = () => {
