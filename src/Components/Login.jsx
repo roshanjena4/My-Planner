@@ -39,30 +39,32 @@ function Login() {
 
     return (
         <>
-            <div className="flex h-screen w-full items-center justify-center " >
+            <div className="flex h-screen w-full items-center justify-center">
                 <ToastContainer theme='dark'/>
-                <div className="rounded-xl bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8 z-[5] ">
-                    <div className="text-white">
-                        <div className="mb-8 flex flex-col items-center">
-                            <img src={logo} width="100" alt="loading" />
-                            <h1 className="mb-2 text-2xl"> My Planner </h1>
-                            <span className="text-gray-300">Enter Login Details</span>
-                        </div>
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-4 text-lg">
-                                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="rounded-3xl border-none bg-yellow-100 bg-opacity-50 px-6 py-2 text-center text-black  placeholder-zinc shadow-lg outline-none backdrop-blur-md" placeholder="@email.com" />
+                <div className="rounded-3xl relative z-[5] w-full max-w-lg shadow-2xl overflow-hidden" style={{ background: 'linear-gradient(180deg, rgba(10,12,18,0.9), rgba(6,8,12,0.98))', border: '1px solid rgba(255,255,255,0.04)' }}>
+                    <div className="p-10">
+                        <div className="text-white">
+                            <div className="mb-6 flex flex-col items-center">
+                                <img src={logo} width="90" alt="loading" />
+                                <h1 className="mb-1 text-2xl"> My Planner </h1>
+                                <span className="text-gray-400">Enter Login Details</span>
                             </div>
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-4 text-lg">
+                                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-lg bg-gray-900/60 px-4 py-2 text-center text-gray-100 placeholder:text-gray-500 border border-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="@email.com" />
+                                </div>
 
-                            <div className="mb-4 text-lg">
-                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="rounded-3xl border-none bg-yellow-100 bg-opacity-50 px-6 py-2 text-center text-black placeholder-zinc shadow-lg outline-none backdrop-blur-md" placeholder="*********" />
-                            </div>
-                            <div className="mt-8 flex justify-center text-lg text-black">
-                                <button type="submit" className="rounded-3xl bg-yellow-400 bg-opacity-50 px-10 py-2 text-black shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600">Login</button>
-                            </div>
-                        </form>
-                        <Link to="/signup" className="mt-4 flex justify-center text-lg text-yellow-400 hover:text-yellow-600">
-                            Don't have an account? Sign Up
-                        </Link>
+                                <div className="mb-4 text-lg">
+                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-lg bg-gray-900/60 px-4 py-2 text-center text-gray-100 placeholder:text-gray-500 border border-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="*********" />
+                                </div>
+                                <div className="mt-6 flex justify-center text-lg">
+                                    <button type="submit" className="rounded-full bg-amber-600 px-10 py-2 text-white shadow-md transition-colors duration-300 hover:bg-amber-500">Login</button>
+                                </div>
+                            </form>
+                            <Link to="/signup" className="mt-4 flex justify-center text-lg text-amber-400 hover:text-amber-600">
+                                Don't have an account? Sign Up
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

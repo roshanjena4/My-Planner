@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaRegFileLines } from "react-icons/fa6";
 import { MdFileDownloadDone } from "react-icons/md";
 import { motion } from "motion/react"
@@ -11,6 +11,25 @@ function Card({ data, reference }) {
     const task = useSelector((state)=> state.task.value)
     const [currentTask, setCurrentTask] = useState({})
     const [isModalOpen, setIsModalOpen] = useState(false)
+    
+    // close on Escape and lock body scroll while modal is open
+    useEffect(() => {
+        const onKey = (e) => {
+            if (e.key === 'Escape') setIsModalOpen(false);
+        };
+
+        if (isModalOpen) {
+            document.addEventListener('keydown', onKey);
+            const prevOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+            return () => {
+                document.removeEventListener('keydown', onKey);
+                document.body.style.overflow = prevOverflow;
+            };
+        }
+
+        return () => {};
+    }, [isModalOpen]);
     const handleOpenModal = (task) => {
         setIsModalOpen(true);
         setCurrentTask(task);
@@ -48,23 +67,26 @@ function Card({ data, reference }) {
     return (
         <>
             {isModalOpen && (
-                <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black/50 bg-opacity-50 py-10 z-50">
-                    <div className="relative max-h-full w-full max-w-xl overflow-y-auto sm:rounded-2xl dark:bg-[#1f1d1e]">
-                        <button
-                            type="button"
-                            className="absolute right-4 top-4 rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 focus:outline-none dark:text-gray-500 dark:hover:bg-[#272222] dark:hover:text-gray-300"
-                            aria-label="Close"
-                            onClick={() => setIsModalOpen(false)}
-                        >✕</button>
-                        <div className="w-full">
-                            <div className="m-8 my-20 max-w-[400px] mx-auto">
-                                <div className="mb-8">
-                                    <h1 className="mb-4 text-3xl font-bold text-white">Update status</h1>
-                                    <p className="text-white font-medium">{currentTask.desc}</p>
-                                </div>
+                <div className="fixed inset-0 flex items-center justify-center py-10 z-50" role="dialog" aria-modal="true" aria-labelledby="updateModalTitle">
+                    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} aria-hidden="true" />
+
+                    <div className="relative z-[92] w-full max-w-[520px] rounded-3xl shadow-2xl overflow-hidden" style={{ background: 'linear-gradient(180deg, rgba(10,12,18,0.9), rgba(6,8,12,0.98))', border: '1px solid rgba(255,255,255,0.04)' }}>
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-800">
+                            <h3 id="updateModalTitle" className="text-lg font-bold text-white">Update status</h3>
+                            <button type="button" className="rounded-full p-2 text-gray-300 hover:bg-gray-800/60 hover:text-white focus:outline-none" aria-label="Close" onClick={() => setIsModalOpen(false)}>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="p-6 max-h-[70vh] overflow-y-auto">
+                            <div className="mx-auto max-w-[460px]">
+                                <p className="text-gray-200 mb-6">{currentTask.desc}</p>
+
                                 <div className="flex gap-4">
-                                    <button className="p-3 bg-[#b1b0ca] rounded-full text-black w-1/2 font-semibold" onClick={updateTaskStart}>Start</button>
-                                    <button className="p-3 bg-[#919d6c] rounded-full text-black w-1/2 font-semibold" onClick={updateTaskDone}>Done</button>
+                                    <button className="flex-1 p-3 bg-gray-300 rounded-full text-black font-semibold hover:bg-gray-200" onClick={updateTaskStart}>Start</button>
+                                    <button className="flex-1 p-3 bg-emerald-500 rounded-full text-white font-semibold hover:bg-emerald-400" onClick={updateTaskDone}>Done</button>
                                 </div>
                             </div>
                         </div>
